@@ -20,5 +20,18 @@ namespace JsonReaderLib
             JObject jsonObject = JObject.Parse(File.ReadAllText(_fullPath));
             return jsonObject[itemName] == null ? false : true;
         }
+
+        public bool ChangeItemValue<T> (string itemName, T newValue) 
+        {
+            if (ContainItem(itemName))
+            {
+                JObject jsonObject = JObject.Parse(File.ReadAllText(_fullPath));
+                jsonObject[itemName] = newValue!.ToString();
+                File.WriteAllText(_fullPath, jsonObject.ToString());
+                return true;
+            }
+
+            return false;
+        }
     }
 }

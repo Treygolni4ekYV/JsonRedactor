@@ -63,7 +63,7 @@ namespace JsonReaderLib
         }
 
         
-        public List<JsonFile> SearchFilesWithItem(string itemName, BoolNotification? notification = null)
+        public List<JsonFile> SearchFilesWithItem(string itemName, ActionNotification? notification = null)
         {
             List<JsonFile> respFiles = new();
             foreach (var file in Files)
@@ -75,14 +75,14 @@ namespace JsonReaderLib
                         respFiles.Add(file);
                         if (notification != null)
                         {
-                            notification.Invoke(true, new ActionResponse(file.FullPath, ResponseCode.Success));
+                            notification.Invoke(new ActionResponse(file.FullPath, ResponseCode.Success));
                         }
                     }
                     else
                     {
                         if (notification != null)
                         {
-                            notification.Invoke(false, new ActionResponse(file.FullPath, ResponseCode.Half));
+                            notification.Invoke(new ActionResponse(file.FullPath, ResponseCode.Half, "File don't consist item"));
                         }
                     }
                 }
@@ -90,14 +90,61 @@ namespace JsonReaderLib
                 {
                     if (notification != null)
                     {
-                        notification.Invoke(true, 
-                            new ActionResponse(file.FullPath, ResponseCode.Error, exception.Message));
+                        notification.Invoke(new ActionResponse(file.FullPath, ResponseCode.Error, exception.Message));
                     }
                     continue;
                 }
                 
             }
             return respFiles;
+        }
+
+        //Изменение значение поля у всех файлов
+        public List<JsonFile> ChangeFilesItemValue<T>(string itemName, T newValue, ActionNotification? notification = null)
+        {
+            List<JsonFile> changedFiles = new();
+
+            foreach (var file in _files)
+            {
+                try
+                {
+                    if (file.ContainItem(itemName))
+                    {
+                        if(file.ChangeItemValue<T>(itemName, newValue))
+                        {
+                            if (notification != null)
+                            {
+                                notification.Invoke(new ActionResponse(file.FullPath, ResponseCode.Success));
+                            }
+                        }
+                        else
+                        {
+                            if (notification != null)
+                            {
+                                notification.Invoke(new ActionResponse(file.FullPath, ResponseCode.Error, "Can't change item value"));
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (notification != null)
+                        {
+                            notification.Invoke(new ActionResponse(file.FullPath, ResponseCode.Half, "File don't consist item"));
+                        }
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    if(notification != null)
+                    {
+                        notification.Invoke(new ActionResponse(file.FullPath, ResponseCode.Error, ex.Message));
+                    }
+                    continue;
+                }
+            }
+
+            return changedFiles;
         }
 
     }

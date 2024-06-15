@@ -1,4 +1,5 @@
 ﻿using JsonReaderLib;
+using JsonReaderLib.Enums;
 
 namespace testConsole
 {
@@ -8,15 +9,22 @@ namespace testConsole
         {
             JsonDirectory jsonDirectory = new JsonDirectory(@"C:\Users\user\Desktop\recipes\packer");
 
-            var resp = jsonDirectory.SearchFilesWithItem("asd", (result, resp) =>
+            var resp = jsonDirectory.ChangeFilesItemValue<int>("duration", 12, (resp) =>
             {
-                if (result)
+                switch (resp.Code)
                 {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
+                    case ResponseCode.Success:
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        break;
+                    case ResponseCode.Error:
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        break;
+                    case ResponseCode.Half:
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        break;
+                    case ResponseCode.Custom:
+                    default:
+                        break;
                 }
                 Console.WriteLine(resp.ToString());
                 Console.ResetColor();
