@@ -1,0 +1,97 @@
+﻿<Window x:Class="JsonRedactor.JsonRedactorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:JsonRedactor"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="Json Redactor" 
+        Height="600" Width="800"
+        MinHeight="600" MinWidth="800">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+            
+        <Menu 
+            VerticalAlignment="Top"
+            Grid.Row="0"
+            BorderThickness="1"
+            BorderBrush="LightGray">
+            <MenuItem Header="Directory">
+                <MenuItem Header="Open"/>
+                <MenuItem Header="Close"/>
+            </MenuItem>
+            <MenuItem Header="Actions">
+                <MenuItem Header="Find files with item"/>
+                <MenuItem Header="Replase all items data"/>
+            </MenuItem>
+        </Menu>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <TreeView
+                x:Name="FileTree"
+                Grid.Row="0"
+                Grid.Column="0">
+
+            </TreeView>
+
+            <Grid
+                Grid.Row="0"
+                Grid.Column="1">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Menu
+                    Grid.Row="0">
+                    <MenuItem Header="Сохранить"/>
+                    <MenuItem Header="Закрыть"/>
+                    <MenuItem Header="Сохранить как"/>
+                </Menu>
+                
+                
+                <RichTextBox
+                    x:Name="FilePreview"
+                    Grid.Row="1"
+                    VerticalAlignment="Stretch"/>
+            </Grid>
+
+
+            <RichTextBox
+                x:Name="ConsoleRTB"
+                Grid.Row="1"
+                Grid.ColumnSpan="2"
+                Height="200"
+                IsReadOnly="True">
+            </RichTextBox>
+            
+            
+        </Grid>
+
+        
+
+        
+    </Grid>
+</Window>

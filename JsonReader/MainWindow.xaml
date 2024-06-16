@@ -1,0 +1,69 @@
+﻿<Window x:Class="JsonReader.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:JsonReader"
+        mc:Ignorable="d"
+        WindowStyle="SingleBorderWindow" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Title="Meun" Height="250" Width="400">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    
+    <Grid 
+        Style="{StaticResource MainGrid}"
+        Margin="5,-5,5,5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Label
+            Grid.Row="0"
+            Style="{StaticResource Title}"
+            Content="Select option"/>
+
+        <Grid
+            Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button
+                Grid.Column="0"
+                Margin="5"
+                FontSize="18"
+                Content="Select directory" Click="OpenDir_click"/>
+            
+            <Button
+                Grid.Column="1"
+                Margin="5"
+                IsEnabled="False"
+                Content="Options(maybe later)"/>
+
+        </Grid>
+
+        <StackPanel
+            Grid.Row="2"
+            Orientation="Vertical">
+            <Label
+                FontSize="15"
+                Content="Created by Treygolni4ekYV tg: t.me/Treygolni4ekYV"/>
+
+
+            <Label
+                Margin="0,-10,0,0"
+                Content="Perhaps a normal design will be created later"/>
+        </StackPanel>
+        
+        
+    </Grid>
+</Window>
